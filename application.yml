@@ -28,8 +28,6 @@ spring:
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
-# Enable all Actuators and not only the two available by default /health and /info starting Spring Boot 2.0
-management.endpoints.web.exposure.include: "*"
 
 # Temporary hack required by the Spring Boot 2 / Spring Cloud Finchley branch
 # Waiting issue https://github.com/spring-projects/spring-boot/issues/13042
@@ -46,6 +44,8 @@ management:
       enabled: true
     prometheus:
       enabled: true
+    health:
+      show-details: ALWAYS
   endpoints:
     web:
       exposure:
@@ -54,16 +54,3 @@ management:
     export:
       prometheus:
         enabled: true
-
----
-spring:
-  config:
-    activate:
-      on-profile: mysql
-  datasource:
-    schema: classpath*:db/mysql/schema.sql
-    data: classpath*:db/mysql/data.sql
-    url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
-    username: root
-    password: petclinic
-    initialization-mode: ALWAYS
